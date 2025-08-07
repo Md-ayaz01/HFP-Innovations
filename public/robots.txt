@@ -1,0 +1,11 @@
+# robots.txt for https://hfpinnovations.com
+User-agent: *
+Allow: /
+
+# Block sensitive folders (if any)
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /assets/models/
+
+# Sitemap (optional)
+Sitemap: https://hfpinnovations.com/sitemap.xml
