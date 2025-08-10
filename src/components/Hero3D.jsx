@@ -1,7 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import ScrollAnimation from './ScrollAnimation';
+
+// Floating animation for the logo
+const float = keyframes`
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+`;
+
+// Glow pulse for the button
+const glowPulse = keyframes`
+  0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+  50% { box-shadow: 0 0 35px rgba(255, 215, 0, 0.8); }
+  100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+`;
 
 const Section = styled.section`
   min-height: 100vh;
@@ -16,7 +29,12 @@ const Section = styled.section`
   overflow: hidden;
 `;
 
-const Content = styled.div`
+const GlassContainer = styled.div`
+  background: rgba(255, 255, 255, 0.05);
+  padding: 3rem;
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   max-width: 900px;
   z-index: 1;
   display: flex;
@@ -28,6 +46,7 @@ const Logo = styled.img`
   width: 140px;
   margin-bottom: 1.8rem;
   border-radius: 10px;
+  animation: ${float} 4s ease-in-out infinite;
 
   @media (max-width: 768px) {
     width: 100px;
@@ -36,19 +55,22 @@ const Logo = styled.img`
 `;
 
 const Title = styled(motion.h1)`
-  font-size: 2.8rem;
-  font-weight: 700;
+  font-size: 3rem;
+  font-weight: 800;
   line-height: 1.3;
   margin-bottom: 1.2rem;
+  background: linear-gradient(90deg, #ffd700, #fff8dc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 
   @media (max-width: 768px) {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 `;
 
 const SubTitle = styled(motion.p)`
-  font-size: 1.1rem;
-  color: #dbeafe;
+  font-size: 1.15rem;
+  color: #f0f0f0;
   margin-bottom: 2rem;
   max-width: 700px;
 
@@ -59,18 +81,19 @@ const SubTitle = styled(motion.p)`
 
 const CTAButton = styled(motion.a)`
   display: inline-block;
-  background: #7f5af0;
-  color: white;
+  background: linear-gradient(90deg, #ffd700, #ffcc33);
+  color: black;
   padding: 0.9rem 2.2rem;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   border-radius: 8px;
   text-decoration: none;
   transition: 0.3s ease;
+  animation: ${glowPulse} 2s infinite;
 
   &:hover {
-    background: #6843d7;
-    transform: scale(1.05);
+    transform: scale(1.07);
+    background: linear-gradient(90deg, #ffcc33, #ffd700);
   }
 `;
 
@@ -79,7 +102,7 @@ const BackgroundGlow = styled.div`
   width: 600px;
   height: 600px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(127, 90, 240, 0.4) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
   top: -100px;
   right: -150px;
   z-index: 0;
@@ -96,7 +119,7 @@ const Hero3D = () => {
   return (
     <Section id="hero">
       <BackgroundGlow />
-      <Content>
+      <GlassContainer>
         <Logo src="/assets/logo/hfp-logo.jpg" alt="HFP Innovations Logo" />
 
         <ScrollAnimation>
@@ -130,7 +153,7 @@ const Hero3D = () => {
             Let’s Build Your Vision
           </CTAButton>
         </ScrollAnimation>
-      </Content>
+      </GlassContainer>
     </Section>
   );
 };
