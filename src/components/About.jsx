@@ -4,32 +4,36 @@ import styled from 'styled-components';
 import ScrollAnimation from './ScrollAnimation';
 
 const Section = styled.section`
-  padding: 4rem 2rem;
-  background: ${({ theme }) => theme.bg};
-  color: ${({ theme }) => theme.text};
+  padding: 6rem 2rem;
   text-align: center;
+  color: #fff;
+
+  /* Solid dark background matching hero/service */
+  background-color: #0f2027;
 `;
 
 const Title = styled.h2`
-  font-size: 2.4rem;
-  margin-bottom: 1rem;
+  font-size: 3rem;  /* premium size */
+  margin-bottom: 1.5rem;
+  font-weight: 900;
+  color: #ffd700;
 `;
 
 const SubTitle = styled.p`
-  font-size: 1.05rem;
-  color: ${({ theme }) => theme.textLight};
-  margin-bottom: 2rem;
+  font-size: 1.5rem;  /* premium size */
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 3rem;
 `;
 
 const Content = styled.div`
   max-width: 900px;
   margin: auto;
-  font-size: 1rem;
-  line-height: 1.7;
-  color: ${({ theme }) => theme.text};
+  font-size: 1.2rem;  /* slightly larger for premium feel */
+  line-height: 1.8;
+  color: #f0f0f0;
 `;
 
-const About = () => {
+const About3DPremium = () => {
   return (
     <Section id="about">
       <ScrollAnimation>
@@ -53,4 +57,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default About3DPremium;

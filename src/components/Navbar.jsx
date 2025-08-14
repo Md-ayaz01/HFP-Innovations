@@ -11,12 +11,9 @@ const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
   z-index: 999;
-  backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.7);
-
-  ${({ theme }) =>
-    theme.bg === '#121212' &&
-    `background-color: rgba(30, 30, 30, 0.7);`}
+  backdrop-filter: blur(15px);
+  background-color: rgba(15, 32, 39, 0.85); /* Dark hero-like background */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 `;
 
 const Brand = styled.div`
@@ -33,8 +30,8 @@ const Logo = styled.img`
 
 const CompanyName = styled.h1`
   font-size: 1.4rem;
-  font-weight: 600;
-  color: ${({ theme }) => theme.text};
+  font-weight: 700;
+  color: #ffd700; /* Golden premium text */
 `;
 
 const Menu = styled.div`
@@ -45,11 +42,11 @@ const Menu = styled.div`
     position: relative;
     cursor: pointer;
     font-weight: 500;
-    color: ${({ theme }) => theme.text};
-    transition: color 0.3s;
+    color: rgba(255, 215, 0, 0.85); /* golden subtle */
+    transition: color 0.3s ease;
 
     &:hover {
-      color: #7f5af0;
+      color: #ffd700;
     }
 
     &::after {
@@ -59,7 +56,7 @@ const Menu = styled.div`
       bottom: -4px;
       width: 0%;
       height: 2px;
-      background: #7f5af0;
+      background: #ffd700;
       transition: width 0.3s ease;
     }
 
@@ -69,7 +66,7 @@ const Menu = styled.div`
     }
 
     &.active {
-      color: #7f5af0;
+      color: #ffd700;
     }
   }
 
@@ -82,7 +79,7 @@ const Hamburger = styled.div`
   display: none;
   cursor: pointer;
   font-size: 1.5rem;
-  color: ${({ theme }) => theme.text};
+  color: #ffd700;
 
   @media (max-width: 768px) {
     display: block;
@@ -95,20 +92,20 @@ const MobileMenu = styled.div`
   position: absolute;
   top: 100%;
   right: 2rem;
-  background: ${({ theme }) => theme.bgLight};
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: rgba(15, 32, 39, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
   padding: 1rem;
   z-index: 1000;
 
   a {
     margin: 0.5rem 0;
-    color: ${({ theme }) => theme.text};
+    color: #ffd700;
     font-weight: 500;
     transition: color 0.3s;
 
     &:hover {
-      color: #7f5af0;
+      color: white;
     }
   }
 `;
@@ -131,27 +128,36 @@ const Navbar = () => {
       </Brand>
 
       <Menu>
-        <Link to="hero" smooth duration={500} offset={-80} spy={true} activeClass="active">Home</Link>
-        <Link to="services" smooth duration={500} offset={-80} spy={true} activeClass="active">Services</Link>
-        <Link to="projects" smooth duration={500} offset={-80} spy={true} activeClass="active">Projects</Link>
-        <Link to="pricing" smooth duration={500} offset={-80} spy={true} activeClass="active">Pricing</Link>
-        <Link to="about" smooth duration={500} offset={-80} spy={true} activeClass="active">About</Link>
-        <Link to="testimonials" smooth duration={500} offset={-80} spy={true} activeClass="active">Testimonials</Link>
-        <Link to="blog" smooth duration={500} offset={-80} spy={true} activeClass="active">Blog</Link>
-        <Link to="contact" smooth duration={500} offset={-80} spy={true} activeClass="active">Contact</Link>
+        {['hero','services','projects','pricing','about','testimonials','blog','contact'].map((section) => (
+          <Link
+            key={section}
+            to={section}
+            smooth
+            duration={500}
+            offset={-80}
+            spy
+            activeClass="active"
+          >
+            {section.charAt(0).toUpperCase() + section.slice(1)}
+          </Link>
+        ))}
       </Menu>
 
       <Hamburger onClick={() => setMenuOpen(!menuOpen)}>☰</Hamburger>
 
       <MobileMenu open={menuOpen}>
-        <Link to="hero" smooth duration={500} offset={-80} onClick={() => setMenuOpen(false)}>Home</Link>
-        <Link to="services" smooth duration={500} offset={-80} onClick={() => setMenuOpen(false)}>Services</Link>
-        <Link to="projects" smooth duration={500} offset={-80} onClick={() => setMenuOpen(false)}>Projects</Link>
-        <Link to="pricing" smooth duration={500} offset={-80} onClick={() => setMenuOpen(false)}>Pricing</Link>
-        <Link to="about" smooth duration={500} offset={-80} onClick={() => setMenuOpen(false)}>About</Link>
-        <Link to="testimonials" smooth duration={500} offset={-80} onClick={() => setMenuOpen(false)}>Testimonials</Link>
-        <Link to="blog" smooth duration={500} offset={-80} onClick={() => setMenuOpen(false)}>Blog</Link>
-        <Link to="contact" smooth duration={500} offset={-80} onClick={() => setMenuOpen(false)}>Contact</Link>
+        {['hero','services','projects','pricing','about','testimonials','blog','contact'].map((section) => (
+          <Link
+            key={section}
+            to={section}
+            smooth
+            duration={500}
+            offset={-80}
+            onClick={() => setMenuOpen(false)}
+          >
+            {section.charAt(0).toUpperCase() + section.slice(1)}
+          </Link>
+        ))}
       </MobileMenu>
     </Nav>
   );

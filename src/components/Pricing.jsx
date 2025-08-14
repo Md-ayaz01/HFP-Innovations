@@ -10,25 +10,27 @@ const shine = keyframes`
 
 const Section = styled.section`
   padding: 4rem 2rem;
-  background: ${({ theme }) =>
-    theme.mode === "light"
-      ? "#f9f9f9"
-      : "linear-gradient(135deg, #0a0f1f, #14213d)"};
+  background: linear-gradient(135deg, #0f2027 0%, #1c1f34 100%); /* hero matching */
   text-align: center;
-  color: ${({ theme }) => (theme.mode === "light" ? "#222" : "#fff")};
+  color: #fff;
+  position: relative;
+  overflow: hidden;
 `;
 
 const Title = styled.h2`
   font-size: 2.4rem;
-  color: ${({ theme }) => (theme.mode === "light" ? "#222" : "#ffd700")};
+  color: #ffd700;
   margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
 `;
 
 const SubTitle = styled.p`
   font-size: 1.05rem;
-  color: ${({ theme }) =>
-    theme.mode === "light" ? "#555" : "rgba(255, 255, 255, 0.8)"};
+  color: rgba(255, 255, 255, 0.85);
   margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
 `;
 
 const ToggleWrapper = styled.div`
@@ -36,29 +38,21 @@ const ToggleWrapper = styled.div`
   display: flex;
   justify-content: center;
   gap: 0.6rem;
+  position: relative;
+  z-index: 2;
 `;
 
 const ToggleButton = styled.button`
   padding: 0.5rem 1.2rem;
-  background: ${({ $active, theme }) =>
-    $active
-      ? "#7f5af0"
-      : theme.mode === "light"
-      ? "#e0e0e0"
-      : "rgba(255,255,255,0.2)"};
-  color: ${({ theme }) => (theme.mode === "light" ? "#222" : "#fff")};
+  background: ${({ $active }) => ($active ? "#ffd700" : "rgba(255,255,255,0.2)")};
+  color: black;
   border: none;
   border-radius: 8px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   &:hover {
-    background: ${({ $active, theme }) =>
-      $active
-        ? "#6843d7"
-        : theme.mode === "light"
-        ? "#ccc"
-        : "rgba(255,255,255,0.35)"};
+    background: ${({ $active }) => ($active ? "#e6c200" : "rgba(255,255,255,0.35)")};
   }
 `;
 
@@ -68,55 +62,42 @@ const Cards = styled.div`
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 `;
 
 const Card = styled(motion.div)`
-  background: ${({ theme }) =>
-    theme.mode === "light"
-      ? "#ffffff"
-      : "rgba(255, 255, 255, 0.05)"};
-  backdrop-filter: blur(${({ theme }) => (theme.mode === "light" ? "0px" : "12px")});
-  color: ${({ theme }) => (theme.mode === "light" ? "#222" : "#fff")};
+  background: #fff; /* white card for premium look */
+  color: #111;
   min-height: 420px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-radius: 16px;
   padding: 2rem;
-  border: ${({ theme }) =>
-    theme.mode === "light"
-      ? "1px solid #ddd"
-      : "1px solid gold"};
-  box-shadow: ${({ theme }) =>
-    theme.mode === "light"
-      ? "0 8px 20px rgba(0,0,0,0.08)"
-      : "0 0 12px rgba(255, 215, 0, 0.4)"};
-  transition: 0.3s ease;
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
 
   &:hover {
-    box-shadow: ${({ theme }) =>
-      theme.mode === "light"
-        ? "0 10px 25px rgba(0,0,0,0.12)"
-        : "0 0 18px gold, 0 0 35px rgba(255, 215, 0, 0.6)"};
-    ${({ theme }) =>
-      theme.mode === "dark" &&
-      `
-      background-image: linear-gradient(
-        90deg,
-        rgba(255, 215, 0, 0.05) 0%,
-        rgba(255, 215, 0, 0.15) 50%,
-        rgba(255, 215, 0, 0.05) 100%
-      );
-      background-size: 200px 100%;
-      animation: ${shine} 1.5s linear infinite;
-    `}
+    transform: scale(1.05);
+    box-shadow: 0 12px 35px rgba(255, 215, 0, 0.35);
+    border-color: gold;
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 215, 0, 0.05) 0%,
+      rgba(255, 215, 0, 0.15) 50%,
+      rgba(255, 215, 0, 0.05) 100%
+    );
+    background-size: 200px 100%;
+    animation: ${shine} 1.5s linear infinite;
   }
 `;
 
 const Price = styled.h3`
   font-size: 1.6rem;
   margin: 1rem 0;
-  color: ${({ theme }) => (theme.mode === "light" ? "#7f5af0" : "#ffd700")};
+  color: #ffd700;
 `;
 
 const PlanTitle = styled.h4`
@@ -133,10 +114,7 @@ const FeatureList = styled.ul`
   li {
     margin-bottom: 0.5rem;
     font-size: 0.95rem;
-    color: ${({ theme }) =>
-      theme.mode === "light"
-        ? "#444"
-        : "rgba(255, 255, 255, 0.9)"};
+    color: #111;
   }
 `;
 
@@ -169,7 +147,7 @@ const plans = [
   { title: "Cloud & Infrastructure", priceINR: 25000, priceUSD: 300, features: ["Cloud Migration", "Server Management", "Scalable Infrastructure", "Monitoring & Support"], link: "#contact" },
 ];
 
-const Pricing = () => {
+const PricingPremium = () => {
   const [currency, setCurrency] = useState("INR");
 
   return (
@@ -187,7 +165,7 @@ const Pricing = () => {
       <Cards>
         {plans.map((plan, i) => (
           <ScrollAnimation key={plan.title} delay={0.2 + i * 0.2}>
-            <Card whileHover={{ scale: 1.04, transition: { type: "spring", stiffness: 140 } }}>
+            <Card whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 140 } }}>
               <PlanTitle>{plan.title}</PlanTitle>
               <Price>{currency === "INR" ? `₹${plan.priceINR.toLocaleString()}` : `$${plan.priceUSD.toLocaleString()}`}</Price>
               <FeatureList>
@@ -204,4 +182,4 @@ const Pricing = () => {
   );
 };
 
-export default Pricing;
+export default PricingPremium;
